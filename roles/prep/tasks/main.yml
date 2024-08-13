@@ -12,7 +12,7 @@
 - name: add ssh key for ansible user
   authorized_key:
     user: ansible
-    key: "tbd"
+    key: "{{ ansible_user_public_key }}"
 
 
 - name: add sudoers file for ansible user
@@ -27,7 +27,7 @@
 - name: add ssh key for admin/root
   authorized_key:
     user: admin
-    key: "tbd"
+    key: "{{ admin_user_public_key }}"
 
 - name: add updated sshd_config file to disable password authentication
   tags: always
