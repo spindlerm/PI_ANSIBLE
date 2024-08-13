@@ -1,0 +1,40 @@
+ 
+- name: install updates
+  apt:
+    upgrade: dist
+    update_cache: yes
+
+- name: create ansible user
+  user:
+    name: ansible
+    groups: root, sudo
+
+- name: add ssh key for ansible user
+  authorized_key:
+    user: ansible
+    key: "tbd"
+
+
+- name: add sudoers file for ansible user
+  tags: always
+  copy:
+    src: sudoer_ansible
+    dest: /etc/sudoers.d/ansible
+    owner: root
+    group: root
+    mode: 0440
+
+- name: add ssh key for admin/root
+  authorized_key:
+    user: admin
+    key: "tbd"
+
+- name: add updated sshd_config file to disable password authentication
+  tags: always
+  copy:
+    src: sshd_config
+    dest: /etc/ssh
+    owner: root
+    group: root
+    mode: 0440
+  notify: restart_sshd
