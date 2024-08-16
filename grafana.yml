@@ -1,0 +1,6 @@
+---
+
+- hosts: dashboard
+  become: yes
+  roles:      
+    - role: grafana
