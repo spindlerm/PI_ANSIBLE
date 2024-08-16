@@ -1,0 +1,23 @@
+- block:
+  - name: Add MySQL 8 ubuntu xenial repository
+    apt_repository: 
+      repo: "deb http://repo.mysql.com/apt/ubuntu xenial mysql-8.0"
+      state: present
+
+  - name: Install mySql
+    apt:
+      name: "{{ item }}"
+      state: present
+      update_cache: true
+    loop:
+      - python3-mysqldb
+      - default-mysql-server
+      - default-mysql-client
+    become: yes
+ 
+  - name: start and enable mysql service
+    service:
+      name: mysql
+      state: started
+      enabled: yes
+  when: inventory_hostname in groups.mysql_servers
