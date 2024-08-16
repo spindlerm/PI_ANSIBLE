@@ -1,0 +1,24 @@
+---
+
+- hosts: dashboard
+  become: yes
+  roles:      
+    - role: geerlingguy.mysql
+      vars:
+        mysql_user_home: "/ansible"
+
+  tasks:
+  - name: Install mySql
+    apt:
+      name: "{{ item }}"
+      state: present
+      update_cache: true
+    loop:
+      - default-mysql-client
+    become: yes
+
+  - name: Create the dashboard database
+    mysql_db:
+      name: "dashboard"
+      state: present
+      
