@@ -1,4 +1,4 @@
-To prep clean pie OS, override all settings in th eansible.cfg
+To prep clean pie OS, override all settings in the ansible.cfg
 
 Note:
 
