@@ -21,7 +21,12 @@
     rule=allow 
     port=80
   when: inventory_hostname in groups.webservers
-    
+
+- name: allow port 3000 (Grafana)
+  ufw:
+    rule=allow
+    port=3000
+  when: inventory_hostname in groups.dashboard
 
 - name: enable ufw
   ufw: state=enabled policy=deny
